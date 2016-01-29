@@ -116,7 +116,7 @@ function getCDs() {
     syncInterval = setInterval(syncCDs, 10000);
   }
 
-  return cds || mockData;
+  return cds || [];
 }
 
 function destroy() {
