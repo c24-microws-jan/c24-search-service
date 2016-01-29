@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const cdCache = require('./cdCache');
+
+// fetch cds from the catalog
 cdCache.syncCDs();
 
 // Define some default values if not set in environment
@@ -92,8 +94,8 @@ console.log(`Service listening on port ${PORT} ...`);
 ////////////// GRACEFUL SHUTDOWN CODE ////
 
 const gracefulShutdown = function() {
-  cdCache.destroy();
   console.log('Received kill signal, shutting down gracefully.');
+  cdCache.destroy();
 
   // First we try to stop the server smoothly
   server.close(function() {
