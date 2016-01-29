@@ -1,20 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const xml = require('xml2js');
 
 // Define some default values if not set in environment
 const PORT = process.env.PORT || 3000;
 const SHUTDOWN_TIMEOUT = process.env.SHUTDOWN_TIMEOUT || 10000;
 const SERVICE_CHECK_HTTP = process.env.SERVICE_CHECK_HTTP || '/healthcheck';
 
-// Create a new express app
 const app = express();
-
-// Enable JSON body parsing
 app.use(bodyParser.json());
-
-// Add CORS headers
 app.use(cors());
 
 // Add health check endpoint
