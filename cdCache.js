@@ -1,10 +1,12 @@
 const http = require('http');
+const md5 = require('crypto').createHash('md5');
 const CONSUL_IP = '46.101.193.82';
 const CONSUL_PORT = 8500;
 const CONSUL_CATALOG_SERVICE_HEALTH_QUERY_PATH = '/v1/health/service/c24-catalog-service';
 
 var cds;
 var syncInterval;
+var cdHash;
 
 function getCatalogEndpoint(callback) {
   http.get({
@@ -59,9 +61,53 @@ function syncCDs() {
 
       //the whole response has been recieved, so we just print it out here
       res.on('end', function() {
-        cds = JSON.parse(data) || mockData;
+        const hash = md5.update(data);
+        if (hash !== cdHash) {
+          cds = mapCatalogData(JSON.parse(data));
+          cdHash = hash;
+        }
       });
     });
+  });
+}
+
+function mapCatalogData(catalog) {
+  return catalog.map(function(catalogItem) {
+    var cd = {
+      id: catalogItem.release.id || ''
+    };
+    if ('artist-credit' in catalogItem.release && catalogItem.release['artist-credit'].length > 0) {
+      cd.artist = catalogItem.release['artist-credit'][0].name || '';
+    }
+
+    if ('title' in catalogItem.release) {
+      cd.name = catalogItem.release.title || '';
+    }
+
+    if ('media' in catalogItem.release && catalogItem.release.media.length > 0 && 'track-count' in catalogItem.release.media[0]) {
+      cd.trackCount = catalogItem.release.media[0]['track-count'] || '';
+    }
+
+    if ('images' in catalogItem && catalogItem.images.length > 0 &&
+       'images' in catalogItem.images[0] && catalogItem.images[0].images.length > 0 &&
+       'thumbnails' in catalogItem.images[0].images[0]) {
+      cd.images = {
+        small: catalogItem.images[0].images[0].thumbnails.small || '',
+        large: catalogItem.images[0].images[0].thumbnails.large || ''
+      };
+    }
+
+    if ('date' in catalogItem.release) {
+      cd.date = catalogItem.release.date || '';
+    }
+
+    if ('label-info' in catalogItem.release && catalogItem.release['label-info'].length > 0 &&
+        'label' in catalogItem.release['label-info'][0] &&
+        'name' in catalogItem.release['label-info'][0].label) {
+      cd.label = catalogItem.release['label-info'][0].label.name || '';
+    }
+
+    return cd;
   });
 }
 
@@ -117,7 +163,7 @@ var mockData = [
     label: 'Vertigo'
   },
   {
-    artist: 'f9be3361-c1e1-48e1-8167-f19a54f719f2',
+    artist: 'The Offspring',
     name: 'Americana',
     trackCount: 13,
     id: 'f9be3361-c1e1-48e1-8167-f19a54f719f2',
