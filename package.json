@@ -1,6 +1,6 @@
 {
   "name": "c24-search-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is an example of a node microservice",
   "author": "Andreas Helmberger <public@ahelmberger.de>",
   "license": "MIT",
