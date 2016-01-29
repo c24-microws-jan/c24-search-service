@@ -89,11 +89,10 @@ function mapCatalogData(catalog) {
     }
 
     if ('images' in catalogItem && catalogItem.images.length > 0 &&
-       'images' in catalogItem.images[0] && catalogItem.images[0].images.length > 0 &&
-       'thumbnails' in catalogItem.images[0].images[0]) {
+       'thumbnails' in catalogItem.images[0]) {
       cd.images = {
-        small: catalogItem.images[0].images[0].thumbnails.small || '',
-        large: catalogItem.images[0].images[0].thumbnails.large || ''
+        small: catalogItem.images[0].thumbnails.small || '',
+        large: catalogItem.images[0].thumbnails.large || ''
       };
     }
 
@@ -112,7 +111,7 @@ function mapCatalogData(catalog) {
 }
 
 function getCDs() {
-  if (!(cds && syncInterval)) {
+  if (!syncInterval) {
     syncInterval = setInterval(syncCDs, 10000);
   }
 
