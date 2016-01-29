@@ -1,9 +1,28 @@
 # hello-world-service
 
-[![Build Status](https://travis-ci.org/c24-microws-jan/hello-world-service.svg)](https://travis-ci.org/c24-microws-jan/hello-world-service)
-[![Dependencies](https://david-dm.org/c24-microws-jan/hello-world-service.svg)](https://david-dm.org/badges/shields)
+[![Build Status](https://travis-ci.org/c24-microws-jan/c24-search-service.svg)](https://travis-ci.org/c24-microws-jan/c24-search-service)
+[![Dependencies](https://david-dm.org/c24-microws-jan/c24-search-service.svg)](https://david-dm.org/badges/shields)
 
 This is an example of a node.js microservice
+
+## Get cds
+
+~~~ sh
+GET /cd[/?query={query}&limit={limit}&offset={offset}]
+~~~
+
+## Get specific cd
+
+~~~ sh
+GET /cd/{id}
+~~~
+
+## Get most recent cds
+ 
+~~~ sh
+GET /cd/most_recent
+~~~
+
 
 ## Run it on your local node.js installation
 
@@ -14,7 +33,7 @@ This is an example of a node.js microservice
 ## Build the Docker container
 
 ~~~ sh
-docker build -t hello-world-service .
+docker build -t c24-search-service .
 ~~~
 
 ## Run the Docker container locally

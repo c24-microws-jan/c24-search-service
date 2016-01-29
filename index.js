@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const xml = require('xml2js');
 
 // Define some default values if not set in environment
 const PORT = process.env.PORT || 3000;
@@ -18,7 +19,7 @@ app.use(cors());
 
 // Add health check endpoint
 app.get(SERVICE_CHECK_HTTP, function (req, res) {
-  res.json({ message: 'OK' });
+  res.json({message: 'OK'});
 });
 
 // Add all other service routes
@@ -32,12 +33,63 @@ app.post('/', function (req, res) {
   res.status(201).end();
 });
 
+app.get('/cd/:id', function (req, res) {
+  var data = {
+    id: req.params.id,
+    title: 'Mock Title',
+    artist: 'Mock Artist',
+    cover: {
+      small: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg',
+      large: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg'
+    }
+  };
+  res.json(data);
+});
+
+app.get('/cd', function (req, res) {
+  var data = [
+    {
+      id: 1,
+      title: 'Mock Title1',
+      artist: 'Mock Artist',
+      cover: {
+        small: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg',
+        large: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg'
+      }
+    },{
+      id: 2,
+      title: 'Mock Title2',
+      artist: 'Mock Artist',
+      cover: {
+        small: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg',
+        large: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg'
+      }
+    },{
+      id: 3,
+      title: 'Mock Title3',
+      artist: 'Mock Artist',
+      cover: {
+        small: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg',
+        large: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg'
+      }
+    },{
+      id: 4,
+      title: 'Mock Title4',
+      artist: 'Mock Artist',
+      cover: {
+        small: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg',
+        large: 'http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg'
+      }
+    }
+  ];
+  res.json(data);
+});
+
+
 // Start the server
 const server = app.listen(PORT);
 
 console.log(`Service listening on port ${PORT} ...`);
-
-
 
 
 ////////////// GRACEFUL SHUTDOWN CODE ////
