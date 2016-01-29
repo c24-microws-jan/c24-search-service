@@ -42,7 +42,7 @@ app.get('/cd/:id', function (req, res, next) {
 });
 
 app.get('/cd', function (req, res) {
-  cdController.getCds(req.params, function (err, data) {
+  cdController.getCds(req.query, function (err, data) {
     if (err) {
       return next(err)
     }
