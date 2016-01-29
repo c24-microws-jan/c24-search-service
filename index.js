@@ -36,7 +36,7 @@ app.get('/cd/:id', function (req, res, next) {
     if (!data.length) {
       return res.sendStatus(404);
     }
-    res.json(data);
+    res.json(data[0]);
   });
 
 });
