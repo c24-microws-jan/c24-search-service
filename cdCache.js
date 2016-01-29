@@ -125,57 +125,6 @@ function destroy() {
   }
 }
 
-var mockData = [
-  {
-    artist: 'Rammstein',
-    name: 'Mutter',
-    trackCount: 16,
-    id: 'fb3-14',
-    images: {
-      small: '',
-      large: ''
-    },
-    date: '2004-02-02',
-    label: 'Bla Records'
-  },
-  {
-    artist: 'Metallica',
-    name: 'Master of Puppets',
-    trackCount: 8,
-    id: 'fed37cfc-2a6d-4569-9ac0-501a7c7598eb',
-    images: {
-      small: '',
-      large: ''
-    },
-    date: '1986-03-03',
-    label: 'Elektra'
-  },
-  {
-    artist: 'Metallica',
-    name: 'Ride the Lightning',
-    trackCount: 8,
-    id: '456efd39-f0dc-4b4d-87c7-82bbc562d8f3',
-    images: {
-      small: '',
-      large: ''
-    },
-    date: '1989',
-    label: 'Vertigo'
-  },
-  {
-    artist: 'The Offspring',
-    name: 'Americana',
-    trackCount: 13,
-    id: 'f9be3361-c1e1-48e1-8167-f19a54f719f2',
-    images: {
-      small: '',
-      large: ''
-    },
-    date: '1998-11',
-    label: 'Columbia'
-  }
-];
-
 module.exports = {
   syncCDs: syncCDs,
   getCDs: getCDs,
