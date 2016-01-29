@@ -24,7 +24,7 @@ app.get(SERVICE_CHECK_HTTP, function (req, res) {
 // Add all other service routes
 app.get('/', function (req, res) {
   console.log('GET /');
-  res.send('Hello World');
+  res.send('Hello Search Service');
 });
 
 app.post('/', function (req, res) {
